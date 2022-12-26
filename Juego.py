@@ -70,7 +70,7 @@ def pictures(nivel, name, catego, veloci):
         for a, b in replacements:
             s = s.replace(a, b).replace(a.upper(), b.upper())
         return s
-    pensando = pygame.image.load("imagenes/pensandoH.gif")
+    pensando = pygame.image.load("imagenes/pensandoH.jpg")
     fuente_habla = pygame.font.SysFont("segoe print",50) 
     habla = fuente_habla.render("HABLA...",True, (255,0,0))
     escuche = fuente_habla.render("Te escuche :)",True, (255,0,0))
