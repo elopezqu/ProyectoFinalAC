@@ -211,7 +211,7 @@ def pictures(nivel, name, catego, veloci):
 pygame.init()
 pantalla = pygame.display.set_mode((800,600))
 pygame.display.set_caption("Juego de Memoria!")
-fondo = pygame.image.load("imagenes/fondo-Claro.jpg").convert()
+fondo = pygame.image.load("ProyectoFinalAC/imagenes/fondo-inicio.png").convert()
 fuente_Titulo = pygame.font.SysFont("impact",50)
 titulo = fuente_Titulo.render("Bienvenido al juego de memoria",True,(225,0,0))
 fuente_label1 = pygame.font.SysFont("Helvetica",30)
