@@ -1,7 +1,6 @@
 import pygame, sys
 from pygame.locals import *
-from guizero import *
-from tkinter import ttk, Label
+from tkinter import Tk, ttk, Label
 from playsound import playsound
 import random
 import time
