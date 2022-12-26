@@ -56,6 +56,9 @@ def registro(existe, name):
         pictures(3, name, categoria, velocidad)
 
 def pictures(nivel, name, catego, veloci):
+    file = open("usuarios/maximo.txt", "r")
+    max =  file.read()
+    file.close()
     def normalize(s):
         replacements = (
             ("á", "a"),
@@ -73,7 +76,12 @@ def pictures(nivel, name, catego, veloci):
     escuche = fuente_habla.render("Te escuche :)",True, (255,0,0))
     nuevamente = fuente_habla.render("¿Quieres hacer otro intento?",True,(255,0,0))
     si_no = fuente_habla.render("Di:   SI   o    NO",True,(0,0,255))
+    fuente_r = pygame.font.SysFont("segoe print", 25)
+    maximo = fuente_r.render("Record: "+max,True,(255,158,0))
+    tuNivel = fuente_r.render("Tu record: "+str(nivel),True,(255,158,0))
     pantalla.blit(fondo, (0,0))
+    pantalla.blit(maximo, (15,10))
+    pantalla.blit(tuNivel, (600,10))
     pantalla.blit(pensando, (100,100))
     pygame.display.flip()
     diccionario1 = {1:"cocodrilo",
@@ -123,6 +131,8 @@ def pictures(nivel, name, catego, veloci):
         orden+=diccionario[catego].get(num)+" "
         palabra = pygame.image.load("imagenes/"+diccionario[catego].get(num)+".jpg")
         pantalla.blit(fondo, (0,0))
+        pantalla.blit(maximo, (15,10))
+        pantalla.blit(tuNivel, (600,10))
         pantalla.blit(palabra,[200,100])
         pygame.display.flip()
         aux = "audios/"+diccionario[catego].get(num) +".mp3"
@@ -130,6 +140,8 @@ def pictures(nivel, name, catego, veloci):
         time.sleep(veloci)
     
     pantalla.blit(fondo, (0,0))
+    pantalla.blit(maximo, (15,10))
+    pantalla.blit(tuNivel, (600,10))
     pantalla.blit(pensando, (100,50))
     pygame.display.flip()
     playsound("audios_level/audio-hablar.mp3")
@@ -150,6 +162,10 @@ def pictures(nivel, name, catego, veloci):
             print('Digiste: '+ text+"*")
             print("orden: "+ orden+"*")
             if(text == orden):
+                if(nivel==int(max)):
+                    file = open("usuarios/maximo.txt", "w")
+                    file.write(str(nivel+1))
+                    file.close()   
                 print("Bien")        
                 playsound("audios_level/excelente.mp3")
                 file = open("usuarios/"+name+".txt", "w")
