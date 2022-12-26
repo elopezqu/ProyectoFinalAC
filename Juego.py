@@ -71,6 +71,8 @@ def pictures(nivel, name, catego, veloci):
     fuente_habla = pygame.font.SysFont("segoe print",50) 
     habla = fuente_habla.render("HABLA...",True, (255,0,0))
     escuche = fuente_habla.render("Te escuche :)",True, (255,0,0))
+    nuevamente = fuente_habla.render("¿Quieres hacer otro intento?",True,(255,0,0))
+    si_no = fuente_habla.render("Di:   SI   o    NO",True,(0,0,255))
     pantalla.blit(fondo, (0,0))
     pantalla.blit(pensando, (100,100))
     pygame.display.flip()
@@ -137,15 +139,16 @@ def pictures(nivel, name, catego, veloci):
     r = sr.Recognizer() 
     global cerrarVentana
     with sr.Microphone() as source:
-        audio = r.listen(source)
+        audio = r.record(source, duration=nivel+1)
         pantalla.blit(fondo, (0,0))
         pantalla.blit(pensando, (100,50))
         pantalla.blit(escuche, (220,450))
         pygame.display.flip()
         try:
             text = r.recognize_google(audio, language="es-ES")
-            print('Digiste: '+ text)
             text = normalize(text).lower()+" "
+            print('Digiste: '+ text+"*")
+            print("orden: "+ orden+"*")
             if(text == orden):
                 print("Bien")        
                 playsound("audios_level/excelente.mp3")
@@ -155,8 +158,35 @@ def pictures(nivel, name, catego, veloci):
                 pictures(nivel+1, name, catego, veloci)
             else:
                 print("Mal")
-                playsound("audios_level/Prueba de nuevo.mp3")
-                cerrarVentana = True
+                pantalla.blit(fondo, (0,0))
+                pantalla.blit(pensando, (100,80))
+                pantalla.blit(nuevamente, (50,0))
+                pantalla.blit(si_no, (180,460))
+                pygame.display.flip()
+                playsound("audios_level/nuevoIntento.mp3")
+                time.sleep(2)
+                re = sr.Recognizer()
+                with sr.Microphone() as source:
+                    pantalla.blit(habla, (300, 510))
+                    pygame.display.flip()
+                    audio = re.record(source, duration=3)
+                    pantalla.blit(fondo, (0,0))
+                    pantalla.blit(pensando, (100,50))
+                    pantalla.blit(escuche, (220,450))
+                    try:
+                        text = re.recognize_google(audio, language="es-ES")
+                        text = normalize(text).lower()
+                        print('Digiste: '+ text)
+                        if(text == "si"):
+                            print("De nuevo")        
+                            pictures(nivel, name, catego, veloci)
+                        else:
+                            print("Salir")
+                            playsound("audios_level/gameOver.mp3")
+                            cerrarVentana = True
+                    except:
+                        print('Ocurrio un error')
+                        cerrarVentana = True
         except:
             print('Ocurrio un error')
             cerrarVentana = True

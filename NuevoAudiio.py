@@ -1,3 +1,3 @@
 from gtts import gTTS
-s = gTTS("televisión", lang="es-ES")
-s.save("television.mp3")        
+s = gTTS("Game over", lang="en")
+s.save("audios_level/gameOver.mp3")        
