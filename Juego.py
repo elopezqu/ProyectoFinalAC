@@ -76,9 +76,9 @@ def pictures(nivel, name, catego, veloci):
     escuche = fuente_habla.render("Te escuche :)",True, (255,0,0))
     nuevamente = fuente_habla.render("¿Quieres hacer otro intento?",True,(255,0,0))
     si_no = fuente_habla.render("Di:   SI   o    NO",True,(0,0,255))
-    fuente_r = pygame.font.SysFont("segoe print", 25)
-    maximo = fuente_r.render("Record: "+max,True,(255,158,0))
-    tuNivel = fuente_r.render("Tu record: "+str(nivel),True,(255,158,0))
+    fuente_r = pygame.font.SysFont("Copperplate Gothic", 50)
+    maximo = fuente_r.render("Record: "+max,True,(255,255,255))
+    tuNivel = fuente_r.render("Tu record: "+str(nivel),True,(255,255,255))
     pantalla.blit(fondo, (0,0))
     pantalla.blit(maximo, (15,10))
     pantalla.blit(tuNivel, (600,10))
@@ -101,7 +101,7 @@ def pictures(nivel, name, catego, veloci):
                      4: "television",
                      5: "sillon",
                      6: "celular",
-                     7: "bota",
+                     7: "botas",
                      8: "espejo",
                      9: "plato",
                      10: "camisa"  
@@ -142,7 +142,7 @@ def pictures(nivel, name, catego, veloci):
     pantalla.blit(fondo, (0,0))
     pantalla.blit(maximo, (15,10))
     pantalla.blit(tuNivel, (600,10))
-    pantalla.blit(pensando, (100,50))
+    pantalla.blit(pensando, (100,60))
     pygame.display.flip()
     playsound("audios_level/audio-hablar.mp3")
     print("habla")
@@ -153,7 +153,7 @@ def pictures(nivel, name, catego, veloci):
     with sr.Microphone() as source:
         audio = r.record(source, duration=nivel+1)
         pantalla.blit(fondo, (0,0))
-        pantalla.blit(pensando, (100,50))
+        pantalla.blit(pensando, (100,60))
         pantalla.blit(escuche, (220,450))
         pygame.display.flip()
         try:
@@ -175,12 +175,12 @@ def pictures(nivel, name, catego, veloci):
             else:
                 print("Mal")
                 pantalla.blit(fondo, (0,0))
-                pantalla.blit(pensando, (100,80))
+                pantalla.blit(pensando, (100,70))
                 pantalla.blit(nuevamente, (50,0))
                 pantalla.blit(si_no, (180,460))
                 pygame.display.flip()
                 playsound("audios_level/nuevoIntento.mp3")
-                time.sleep(2)
+                time.sleep(1)
                 re = sr.Recognizer()
                 with sr.Microphone() as source:
                     pantalla.blit(habla, (300, 510))
@@ -211,7 +211,7 @@ def pictures(nivel, name, catego, veloci):
 pygame.init()
 pantalla = pygame.display.set_mode((800,600))
 pygame.display.set_caption("Juego de Memoria!")
-fondo = pygame.image.load("ProyectoFinalAC/imagenes/fondo-inicio.png").convert()
+fondo = pygame.image.load("imagenes/fondo-inicio.png").convert()
 fuente_Titulo = pygame.font.SysFont("impact",50)
 titulo = fuente_Titulo.render("Bienvenido al juego de memoria",True,(225,0,0))
 fuente_label1 = pygame.font.SysFont("Helvetica",30)
